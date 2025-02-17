@@ -3,6 +3,8 @@ import { createContext, useState, useEffect, useCallback } from 'react'
 export const NotesContext = createContext()
 
 export const NotesProvider = ({ children }) => {
+  const [activeNoteId, setActiveNoteId] = useState(null);
+
   const [notes, setNotes] = useState(() => {
     const saved = localStorage.getItem('notes')
     return saved ? JSON.parse(saved) : []
@@ -38,8 +40,19 @@ export const NotesProvider = ({ children }) => {
     ))
   }, [])
 
+  const updateNoteColors = useCallback((newColors) => {
+    if (activeNoteId) {
+      setNotes(prev => prev.map(note => 
+        note.id === activeNoteId ? { ...note, colors: newColors } : note
+      ));
+    }
+  }, [activeNoteId]);
+
   return (
     <NotesContext.Provider value={{
+      activeNoteId,
+      setActiveNoteId,
+      updateNoteColors,
       notes,
       selectedColor,
       setSelectedColor,

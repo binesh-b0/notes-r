@@ -24,7 +24,7 @@ const colorOptions = [
 ]
 
 const Dock = () => {
-  const { selectedColor, setSelectedColor, addNote } = useContext(NotesContext)
+  const { selectedColor, setSelectedColor, addNote, updateNoteColors } = useContext(NotesContext)
 
   return (
     <div className="dock">
@@ -38,7 +38,10 @@ const Dock = () => {
               backgroundColor: color.colorHeader,
               border: selectedColor.id === color.id ? '2px solid black' : 'none'
             }}
-            onClick={() => setSelectedColor(color)}
+            onClick={() => {
+                setSelectedColor(color);
+                updateNoteColors(color); 
+              }}
           />
         ))}
       </div>

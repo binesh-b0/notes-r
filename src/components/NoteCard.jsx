@@ -5,7 +5,7 @@ import Trash from "../icons/Trash"
 import { setNewOffset, autoSize, setZIndex } from "../utils"
 
 const NoteCard = ({ note }) => {
-    const { deleteNote, updateNote } = useContext(NotesContext)
+    const { deleteNote, updateNote, setActiveNoteId } = useContext(NotesContext)
     const [position, setPosition] = useState(note.position)
     const [body, setBody] = useState(note.body)
     const colors = note.colors
@@ -29,6 +29,7 @@ const NoteCard = ({ note }) => {
     }
 
     const mouseDown = (e) => {
+        setActiveNoteId(note.id)
         setZIndex(cardRef.current)
         mouseStartPosition.x = e.clientX
         mouseStartPosition.y = e.clientY
@@ -50,6 +51,7 @@ const NoteCard = ({ note }) => {
     const mouseUp = () => {
         document.removeEventListener("mousemove", mouseMove)
         document.removeEventListener("mouseup", mouseUp)
+        console.log(position)
         updateNote(note.id, { position })
     }
 
