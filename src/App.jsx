@@ -1,15 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// App.js (updated)
+import { useContext } from 'react'
+import { NotesContext } from './contexts/NotesContext.jsx'
+import NoteCard from './components/NoteCard'
+import Dock from './components/Dock'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { notes } = useContext(NotesContext)
 
   return (
-    <>
-      <div> Notes</div>
-    </>
+    <div>
+      <Dock />
+      {notes.map((note) => (
+        <NoteCard key={note.id} note={note} />
+      ))}
+    </div>
   )
 }
 
