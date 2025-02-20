@@ -55,21 +55,27 @@
  
    
 .dock {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.9);
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: 40px;
   display: flex;
-  gap: 15px;
+  gap: 20px;          
   align-items: center;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  z-index: 10000;
+}
+
+.search-pill {
+  padding: 0;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
   border: none;
@@ -99,4 +105,90 @@
 
 .color-option:hover {
   transform: scale(1.1);
+}
+
+.empty-state {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  padding: 0;
+}
+
+.search-input {
+  padding: 12px 45px 12px 22px;
+  color: black;
+  background: whitesmoke;
+  border-radius: 20px;
+  border: .05rem solid transparent;
+  width: 100%;
+  min-width: 100px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #9bd1de;
+  box-shadow: 0 0 0 2px rgba(155, 209, 222, 0.3);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 1.2rem;
+  padding: 0 5px;
+}
+
+.clear-search-btn:hover {
+  color: #333;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;          
+  z-index: 10000;     
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 2px rgba(155, 209, 222, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(155, 209, 222, 1);
+  }
+  100% {
+    box-shadow: 0 0 2px rgba(155, 209, 222, 0.5);
+  }
+}
+
+.card.highlight {
+  animation: glow 1.5s ease-in-out infinite;
 }

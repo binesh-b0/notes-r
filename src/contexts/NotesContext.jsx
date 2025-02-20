@@ -1,14 +1,23 @@
-import { createContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useState, useEffect, useCallback, useMemo } from 'react'
 
 export const NotesContext = createContext()
 
 export const NotesProvider = ({ children }) => {
   const [activeNoteId, setActiveNoteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('')
 
   const [notes, setNotes] = useState(() => {
     const saved = localStorage.getItem('notes')
     return saved ? JSON.parse(saved) : []
   })
+
+  const filteredNotes = useMemo(() => {
+    if (!searchQuery) return notes
+    const query = searchQuery.toLowerCase()
+    return notes.filter(note =>
+      note.body.toLowerCase().includes(query)
+    )
+  }, [notes, searchQuery])
   
   const [selectedColor, setSelectedColor] = useState({
     colorHeader: "#FED0FD",
@@ -53,12 +62,16 @@ export const NotesProvider = ({ children }) => {
       activeNoteId,
       setActiveNoteId,
       updateNoteColors,
-      notes,
+      notes : filteredNotes,
+      allNotes: notes,
       selectedColor,
       setSelectedColor,
       addNote,
       deleteNote,
-      updateNote
+      updateNote,
+      searchQuery,
+      setSearchQuery,
+      
     }}>
       {children}
     </NotesContext.Provider>

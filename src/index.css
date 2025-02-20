@@ -31,6 +31,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: radial-gradient(
+    circle at center,
+     black 0.10rem,
+    transparent 0
+  ), radial-gradient(circle at center, black 0.05rem, transparent 0);
+background-size: 1.3rem 1.3rem;
+background-position: 0 0, 0.65rem 0.65rem;
 }
 
 h1 {

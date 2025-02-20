@@ -24,24 +24,36 @@ const colorOptions = [
 ]
 
 const Dock = () => {
-  const { selectedColor, setSelectedColor, addNote, updateNoteColors } = useContext(NotesContext)
+  const {
+    selectedColor,
+    setSelectedColor,
+    addNote,  
+    updateNoteColors,
+  } = useContext(NotesContext)
+
 
   return (
     <div className="dock">
-      <button className="add-btn" onClick={addNote}>+</button>
+      <button
+        className="add-btn"
+        onClick={addNote}
+        aria-label='Add new note'
+      >+</button>
+      
       <div className="color-picker">
         {colorOptions.map(color => (
           <button
             key={color.id}
             className="color-option"
-            style={{ 
+            style={{
               backgroundColor: color.colorHeader,
               border: selectedColor.id === color.id ? '2px solid black' : 'none'
             }}
             onClick={() => {
-                setSelectedColor(color);
-                updateNoteColors(color); 
-              }}
+              setSelectedColor(color);
+              updateNoteColors(color);
+            }}
+            aria-label={`Select ${color.id} color`}
           />
         ))}
       </div>

@@ -5,11 +5,14 @@ import Trash from "../icons/Trash"
 import { setNewOffset, autoSize, setZIndex } from "../utils"
 
 const NoteCard = ({ note }) => {
-    const { deleteNote, updateNote, setActiveNoteId } = useContext(NotesContext)
+    const { deleteNote, updateNote, setActiveNoteId, searchQuery } = useContext(NotesContext)
     const [position, setPosition] = useState(note.position)
     const [body, setBody] = useState(note.body)
     const colors = note.colors
     const debounceTimeout = useRef(null)
+
+    const createdAt = new Date(note.id).toLocaleString()
+    const characterCount = note.body.length
 
     const cardRef = useRef(null)
     const textareaRef = useRef(null)
@@ -51,25 +54,38 @@ const NoteCard = ({ note }) => {
     const mouseUp = () => {
         document.removeEventListener("mousemove", mouseMove)
         document.removeEventListener("mouseup", mouseUp)
-        console.log(position)
         updateNote(note.id, { position })
     }
 
     return (
         <div
             ref={cardRef}
-            className="card"
-            style={{
+            className={`card ${
+                // If there’s an active search query and the note text includes it, add a highlight
+                searchQuery &&
+                note.body.toLowerCase().includes(searchQuery.toLowerCase())
+                  ? "highlight"
+                  : ""
+              }`}            style={{
                 backgroundColor: colors.colorBody,
                 left: `${position.x}px`,
                 top: `${position.y}px`,
-            }}>
+            }}
+            role="article"
+            aria-label={`Note created on ${createdAt} `}
+            >
             <div
                 className="card-header"
                 onMouseDown={mouseDown}
                 style={{ backgroundColor: colors.colorHeader }}
             >
-                <span onClick={() => deleteNote(note.id)}><Trash /></span>
+                 <button 
+                    onClick={() => deleteNote(note.id)}
+                    aria-label="Delete note"
+                    className="icon-button"
+                >
+                    <Trash />
+                </button>
             </div>
             <div className="card-body">
                 <textarea
@@ -79,7 +95,22 @@ const NoteCard = ({ note }) => {
                     value={body}
                     placeholder="Type something..."
                     onFocus={() => setZIndex(cardRef.current)}
+                    aria-label="Note content"
                 ></textarea>
+            </div>
+            <div className="card-footer"
+                style={{ 
+                    fontSize: '0.8rem',
+                    fontStyle: 'italic',
+                    color: colors.colorText,
+                    opacity: 0.7,
+                    padding: '0.5rem 1rem',
+                    display: 'flex',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <span>{createdAt}</span>
+                <span>{characterCount} chars</span>
             </div>
         </div>
     )
