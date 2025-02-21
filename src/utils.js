@@ -10,11 +10,11 @@ export const setNewOffset = (card, moveDir) => {
       y: Math.min(Math.max(newY, 0), maxY)
     }
   }
-export function autoSize(textAreaRef) {
+export function autoSize(textAreaRef, maxHeight) {
     const { current } = textAreaRef;
 
     current.style.height = "auto"; // Reset the height
-    current.style.height = current.scrollHeight<400 ? current.scrollHeight + "px": "400px"; // Set the new height
+    current.style.height = current.scrollHeight<400 ? current.scrollHeight + "px": `${maxHeight}px`; // Set the new height
 }
 
 export const setZIndex = (selectedCard) => {

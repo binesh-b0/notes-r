@@ -1,11 +1,12 @@
-// components/NoteCard.jsx (updated)
 import { useContext, useEffect, useRef, useState } from "react"
 import { NotesContext } from "../contexts/NotesContext.jsx"
 import Trash from "../icons/Trash"
 import { setNewOffset, autoSize, setZIndex } from "../utils"
+import { AppContext } from "../contexts/AppContext.jsx"
 
 const NoteCard = ({ note }) => {
     const { deleteNote, updateNote, setActiveNoteId, searchQuery, activeNoteId } = useContext(NotesContext)
+    const {appSettings} = useContext(AppContext)
     const [position, setPosition] = useState(note.position)
     const [body, setBody] = useState(note.body)
     const colors = note.colors
@@ -19,7 +20,7 @@ const NoteCard = ({ note }) => {
     let mouseStartPosition = { x: 0, y: 0 }
 
     useEffect(() => {
-        autoSize(textareaRef)
+        autoSize(textareaRef, appSettings.maxHeight)
     }, [])
 
     const handleInput = (e) => {
@@ -27,7 +28,7 @@ const NoteCard = ({ note }) => {
         clearTimeout(debounceTimeout.current)
         debounceTimeout.current = setTimeout(() => {
             updateNote(note.id, { body: e.target.value })
-            autoSize(textareaRef)
+            autoSize(textareaRef, appSettings.maxHeight)
         }, 300)
     }
 
@@ -99,7 +100,12 @@ const NoteCard = ({ note }) => {
                 <textarea
                     ref={textareaRef}
                     onInput={handleInput}
-                    style={{ color: colors.colorText}}
+                    style={{ 
+                        color: colors.colorText,
+                        fontSize: appSettings.fontSize,
+                        fontFamily: appSettings.fontFamily,
+                        lineHeight: appSettings.lineHeight,
+                    }}
                     value={body}
                     placeholder="Type something..."
                     onFocus={() => setZIndex(cardRef.current)}
