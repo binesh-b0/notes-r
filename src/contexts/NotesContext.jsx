@@ -29,16 +29,37 @@ export const NotesProvider = ({ children }) => {
     localStorage.setItem('notes', JSON.stringify(notes))
   }, [notes])
 
-  const addNote = useCallback(() => {
-    const newNote = {
-      id: Date.now(),
-      body: '',
-      colors: selectedColor,
-      position: { x: Math.random() * 300, y: Math.random() * 100 }
+
+const addNote = useCallback(() => {
+  const lastNote = notes[notes.length - 1];
+  let baseX = 20, baseY = 80; // Start below dock
+  
+  if (lastNote) {
+    baseX = lastNote.position.x + 20;
+    baseY = lastNote.position.y + 20;    
+    // Reset position if getting too far
+    if (baseX > window.innerWidth - 400) {
+      baseX = 20;
+      baseY += 100;
     }
-    setNotes(prev => [...prev, newNote])
-    setActiveNoteId(newNote.id)
-  }, [selectedColor])
+  }
+
+  const newNote = {
+    id: Date.now(),
+    body: '',
+    colors: selectedColor,
+    position: { 
+      x: baseX, 
+      y: baseY,
+      // Add small random offset for natural look
+      x: baseX + Math.random() * 10,
+      y: baseY + Math.random() * 10
+    }
+  };
+  
+  setNotes(prev => [...prev, newNote]);
+  setActiveNoteId(newNote.id);
+}, [selectedColor, notes]);
 
   const deleteNote = useCallback((id) => {
     setNotes(prev => prev.filter(note => note.id !== id))

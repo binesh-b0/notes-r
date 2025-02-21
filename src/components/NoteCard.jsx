@@ -99,7 +99,7 @@ const NoteCard = ({ note }) => {
                 <textarea
                     ref={textareaRef}
                     onInput={handleInput}
-                    style={{ color: colors.colorText }}
+                    style={{ color: colors.colorText}}
                     value={body}
                     placeholder="Type something..."
                     onFocus={() => setZIndex(cardRef.current)}
