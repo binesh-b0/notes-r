@@ -13,8 +13,10 @@ function Search() {
     setSearchQuery('')
   }
 
+  const isHidden = allNotes.length <= 2 ? 'hidden' : 'show';
+
   return (
-    <div className="search-pill" style={allNotes.length === 0 ? { display: 'none' } : {}}>
+    <div className={`search-pill ${isHidden}`}>
       <div className="search-container">
         <input
           type="text"

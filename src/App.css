@@ -70,6 +70,18 @@
   display: flex;
   align-items: center;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.search-pill.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none; /* hide the element from the user */
+}
+
+.search-pill.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .add-btn {
