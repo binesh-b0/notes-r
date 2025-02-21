@@ -37,6 +37,7 @@ export const NotesProvider = ({ children }) => {
       position: { x: Math.random() * 300, y: Math.random() * 100 }
     }
     setNotes(prev => [...prev, newNote])
+    setActiveNoteId(newNote.id)
   }, [selectedColor])
 
   const deleteNote = useCallback((id) => {

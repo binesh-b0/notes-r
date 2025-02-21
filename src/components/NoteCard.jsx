@@ -5,7 +5,7 @@ import Trash from "../icons/Trash"
 import { setNewOffset, autoSize, setZIndex } from "../utils"
 
 const NoteCard = ({ note }) => {
-    const { deleteNote, updateNote, setActiveNoteId, searchQuery } = useContext(NotesContext)
+    const { deleteNote, updateNote, setActiveNoteId, searchQuery, activeNoteId } = useContext(NotesContext)
     const [position, setPosition] = useState(note.position)
     const [body, setBody] = useState(note.body)
     const colors = note.colors
@@ -56,6 +56,14 @@ const NoteCard = ({ note }) => {
         document.removeEventListener("mouseup", mouseUp)
         updateNote(note.id, { position })
     }
+
+    //if the note is active, set focus on the textarea
+    useEffect(() => {
+        if (activeNoteId === note.id && textareaRef.current) {
+            textareaRef.current.focus()
+        }
+    }
+    , [activeNoteId, note.id])
 
     return (
         <div
