@@ -72,6 +72,7 @@ export const NotesProvider = ({ children }) => {
       updateNote,
       searchQuery,
       setSearchQuery,
+      setNotes
       
     }}>
       {children}
