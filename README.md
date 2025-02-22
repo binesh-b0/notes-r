@@ -4,20 +4,17 @@ A simple note-taking app built with **React** and **Vite**. The app allows users
 
 ## Demo
 
-You can check out the live demo here: [Vite React Notes App](https://notes-r.vercel.app/)
+You can check out the live demo here: [Notes](https://notes-r.vercel.app/)
 
 ## Features
 
 - Add, edit, and delete notes
 - Store notes locally using browser local storage
-- Responsive design for mobile and desktop
-- Lightweight and fast, thanks to Vite
 
 ## Tech Stack
 
-- **React**: A JavaScript library for building user interfaces
+- **React**
 - **Vite**: A next-generation, fast development tool for modern web projects
-
 
 ## Getting Started
 
@@ -38,24 +35,24 @@ Make sure you have the following installed:
    ```
 2. Navigate to the project directory:
 
-  ```bash
+```bash
   cd notes-r
-  ```
+```
 
 3. Install the dependencies:
-   
-  ```bash
+
+```bash
   npm install
   # or
   yarn install
-  ```
+```
 
 4. Run the Development Server
-   
+
   To start the app locally, run the following command:
 
-  ```bash
+```bash
   npm run dev
   # or
   yarn dev
-  ``` 
+```

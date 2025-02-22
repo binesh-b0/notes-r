@@ -3,6 +3,7 @@ import { AppContext } from "../contexts/AppContext";
 
 function OptionsMenu() {
   const { 
+    handleUndo,
     handleClearAllNotes,
     handleImportNotes,
     handleExportNotes,
@@ -43,6 +44,9 @@ function OptionsMenu() {
       {isOptionsMenuOpen && (
         <div className="options-menu">
           <ul>
+            <li onClick={() => { handleUndo(); toggleOptionsMenu(false); }}>
+                Undo
+            </li>
             <li onClick={() => { handleClearAllNotes(); toggleOptionsMenu(false); }}>
               Clear All
             </li>

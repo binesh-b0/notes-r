@@ -12,7 +12,7 @@ const NoteCard = ({ note }) => {
     const colors = note.colors
     const debounceTimeout = useRef(null)
 
-    const createdAt = new Date(note.id).toLocaleString()
+    const createdAt = new Date(note.createdAt).toLocaleString()
     const characterCount = note.body.length
 
     const cardRef = useRef(null)
